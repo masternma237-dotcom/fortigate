@@ -1,0 +1,58 @@
+/* ============================================================
+   data/glossary-security.js — Glossaire : sécurité avancée
+   Guide Interactif FortiGate CFP-CMD / MASTER NMA
+   ============================================================ */
+(function () {
+  "use strict";
+  FG.addGlossary({
+    "Brute force": "Attaque consistant à tester massivement des identifiants jusqu'à réussir : contrée par lockout, MFA et trusted hosts.",
+    "Lockout": "Verrouillage temporaire du compte après N échecs d'authentification (threshold/duration) : la force brute devient inutile.",
+    "Trusted hosts": "Liste blanche des sources d'administration : un admin non joignable depuis Internet ne peut pas être attaqué.",
+    "Geo-blocking": "Blocage systématique du trafic provenant de pays sans échange légitime, via des objets de type geography.",
+    "GeoIP": "Base FortiGuard associant adresses IP et pays, exploitée par le geo-blocking et les rapports de menaces.",
+    "DoH": "DNS over HTTPS : résolution DNS chiffrée dans HTTPS (port 443) qui échappe à un filtrage DNS naïf.",
+    "DoT": "DNS over TLS : résolution DNS chiffrée sur le port 853, même objectif que DoH.",
+    "CA": "Certificate Authority : autorité qui signe les certificats. FortiOS embarque une CA d'inspection et peut héberger des certificats locaux.",
+    "Certificat": "Identité cryptographique signée par une CA : utilisée pour l'inspection SSL, les portails et l'authentification IKE.",
+    "DoS": "Denial of Service : saturation d'un service pour le rendre indisponible. FortiOS répond par des politiques DoS à seuils.",
+    "DDoS": "DoS distribué : l'attaque vient de milliers de sources. En amont du FortiGate, le FAI et ses protections volumétriques sont la première ligne.",
+    "SYN flood": "Attaque TCP inondant la cible de SYN sans jamais compléter la poignée de main : les seuils DoS la limitent par source.",
+    "Port scan": "Sondage systématique des ports d'une cible avant attaque : détecté par l'anomalie tcp_portscan.",
+    "DoS policy": "Politique appliquée avant les politiques normales : compte les paquets par source et bloque au-delà des seuils d'anomalies.",
+    "Anomalie": "Comportement statistique anormal (débit SYN, UDP, ICMP…) surveillé par la politique DoS avec action monitor/block.",
+    "Hardening": "Durcissement : application systématique des bonnes pratiques de sécurité (services minimaux, bannières, MFA, logs, sauvegardes).",
+    "Bannière": "Message affiché avant login rappelant le cadre légal de l'accès : pré-login banner FortiOS.",
+    "Surface d'attaque": "Somme des points d'entrée potentiels : services ouverts, ports publiés, comptes actifs. Le durcissement la réduit.",
+    "Session TTL": "Durée de vie par défaut des sessions établies (config system session-ttl) : courte = moindre tenue des connexions inutiles.",
+    "FortiGuard hardening guide": "Guide officiel Fortinet de durcissement des FortiGate : la référence à suivre point par point.",
+    "auto-script": "Mécanisme FortiOS exécutant une séquence de commandes à intervalle ou sur déclencheur : base de la sauvegarde automatique.",
+    "SFTP": "Transfert de fichiers sur SSH : authentifié et chiffré, exigé par le CDC pour les sauvegardes de configuration.",
+    "Rotation": "Gestion bornée de l'historique de sauvegardes (30 jours) : assez long pour détecter, assez court pour maîtriser le stockage.",
+    "Automation stitches": "Réactions programmées FortiOS : déclencheur (log, timer, événement) + actions (e-mail, webhook, script).",
+    "Overload": "Type d'IP pool où plusieurs sources partagent les adresses de la plage (PAT sur une plage dédiée).",
+    "Static NAT": "VIP de type 1:1 : une IP publique entière mappée vers un serveur interne, tous ports.",
+    "Central NAT": "Mode FortiOS séparant les tables de traduction (SNAT/DNAT) des politiques de filtrage.",
+    "SNAT": "Source NAT : traduction de l'adresse source (sortie vers Internet, IP pool, central SNAT map).",
+    "DNAT": "Destination NAT : traduction de l'adresse destination (publication de serveurs, VIP).",
+    "Botnet C&C": "Serveurs de commande et contrôle des machines infectées : bloquer leur résolution (DNS Filter) coupe la communication.",
+    "Phishing": "Hameçonnage : faux sites captant identifiants et données bancaires. Contré par DNS Filter et web filtering.",
+    "Redirection DNS": "NAT du port 53 vers le résolveur interne : même un client mal configuré passe par le filtre.",
+    "Liste blanche": "Ensemble explicite de domaines autorisés/exemptés : garantit l'accès aux ressources pédagogiques malgré le filtrage.",
+    "Stratum": "Distance hiérarchique NTP par rapport à la source de temps : 1 = horloge de référence directe.",
+    "Dérive d'horloge": "Écart progressif entre horloges non synchronisées : fatal à la corrélation des journaux multi-équipements.",
+    "Horodatage": "Marque temporelle d'un événement : fiable seulement si tous les équipements partagent la même source NTP.",
+    "Relais DHCP": "Transmission des requêtes DHCP d'un segment sans serveur vers un serveur central (dhcp-relay-service).",
+    "Option 42": "Option DHCP annonçant le(s) serveur(s) NTP aux clients.",
+    "Option 66": "Option DHCP indiquant le serveur TFTP de provisioning (téléphones IP, AP).",
+    "Option 121": "Option DHCP poussant des routes classless aux clients (réseaux spécialisés joignables sans config manuelle).",
+    "QoS": "Quality of Service : maîtrise du débit et des priorités par flux pour garantir les usages critiques.",
+    "Traffic shaping": "Façonnage du trafic : plafonds (maximum) et planchers (guaranteed) de bande passante par shaper.",
+    "Shaper": "Objet FortiOS définissant débit garanti/max et priorité, appliqué dans les politiques ou les shaping policies.",
+    "Bande passante garantie": "Débit minimum réservé à un flux quand la liaison sature : le cœur de l'engagement QoS.",
+    "Priorité": "Niveau (high/medium/low) départageant les flux quand la liaison est congestionnée.",
+    "Per-IP shaper": "Shaper appliqué à chaque adresse IP individuellement : équité entre utilisateurs derrière un portail captif.",
+    "Class ID": "Étiquette de classe (1..7 << 16) attribuée à un trafic pour piloter sa priorité d'émission.",
+    "Shaping policy": "Règle de shaping avancée : critères applicatifs/utilisateurs → shapers et classes, indépendamment des politiques firewall.",
+    "Équité": "Propriété QoS où chaque utilisateur obtient sa part, indépendamment du comportement des autres."
+  });
+})();

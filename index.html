@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; img-src 'self' data:; font-src https://cdnjs.cloudflare.com; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+  <meta name="description" content="Guide interactif d'apprentissage de la configuration d'un pare-feu FortiGate — CFP-CMD, MASTER NMA Infrastructure & Sécurité Réseaux.">
+  <meta name="theme-color" content="#da291c">
+  <title>Guide Interactif FortiGate — CFP-CMD</title>
+
+  <link rel="icon" href="assets/favicon.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="icon" type="image/png" sizes="96x96" href="assets/favicon-96x96.png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Aller au contenu principal</a>
+
+  <!-- ══════════ SPLASH SCREEN (≈ 8 s, démarrage simulé FortiOS) ══════════ -->
+  <div id="splash" role="dialog" aria-modal="true" aria-label="Écran de démarrage du guide" aria-live="polite">
+    <div class="splash-inner">
+      <div class="splash-logo" aria-hidden="true">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-1 6h2v2h-2V7zm0 4h2v6h-2v-6z"/>
+        </svg>
+      </div>
+      <h1 class="splash-title">Guide Interactif <span>FortiGate</span></h1>
+      <p class="splash-subtitle">CFP-CMD — MASTER NMA · Infrastructure &amp; Sécurité Réseaux</p>
+      <div class="splash-console" id="splash-console" aria-hidden="true"></div>
+      <div class="splash-progress">
+        <div class="splash-bar"><div id="splash-fill"></div></div>
+        <div class="splash-meta">
+          <span id="splash-pct">0 %</span>
+          <span id="splash-msg">Initialisation de FortiOS…</span>
+        </div>
+      </div>
+      <button id="splash-skip" class="splash-skip" type="button">Passer l'introduction (Entrée)</button>
+    </div>
+    <p class="splash-footer">FortiOS 7.x · 6 parcours · 40 sections · Mode hors ligne disponible · © 2026 CFP-CMD</p>
+  </div>
+
+  <!-- ══════════ APPLICATION ══════════ -->
+  <div id="app" class="app-booting">
+
+    <header class="topbar" role="banner">
+      <button id="btn-sidebar" class="icon-btn" type="button" aria-label="Basculer la navigation latérale" aria-expanded="true">
+        <i class="fa-solid fa-bars" aria-hidden="true"></i>
+      </button>
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true"><i class="fa-solid fa-shield-halved"></i></span>
+        <span class="brand-text">
+          <b>Guide FortiGate</b>
+          <small>CFP-CMD · MASTER NMA</small>
+        </span>
+      </div>
+      <div class="search-wrap">
+        <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+        <input id="search-input" type="search" placeholder="Rechercher une section, un concept, un terme…"
+               aria-label="Recherche dans le guide" autocomplete="off" spellcheck="false">
+        <div id="search-results" hidden></div>
+      </div>
+      <div class="progress-wrap" aria-label="Progression du parcours">
+        <div class="progress-track"><div id="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Pourcentage de sections visitées"></div></div>
+        <span id="progress-label">0 %</span>
+      </div>
+      <select id="level-filter" aria-label="Filtrer les sections par niveau">
+        <option value="all">Tous niveaux</option>
+        <option value="debutant">Débutant</option>
+        <option value="intermediaire">Intermédiaire</option>
+        <option value="avance">Avancé</option>
+        <option value="tous">Transversal</option>
+      </select>
+      <button id="btn-glossary" class="icon-btn" type="button" aria-label="Ouvrir le panneau glossaire" aria-pressed="false">
+        <i class="fa-solid fa-book" aria-hidden="true"></i>
+      </button>
+      <button id="btn-export-pdf" class="icon-btn" type="button" aria-label="Exporter la vue courante en PDF">
+        <i class="fa-solid fa-file-pdf" aria-hidden="true"></i>
+      </button>
+      <button id="btn-theme" class="icon-btn" type="button" aria-label="Basculer entre thème sombre et clair">
+        <i class="fa-solid fa-moon" aria-hidden="true"></i>
+      </button>
+    </header>
+
+    <div class="layout" id="layout">
+      <nav id="sidebar" aria-label="Navigation des parcours">
+        <p class="side-intro">6 parcours · 40 sections · cliquez sur un parcours pour le déplier.</p>
+        <div id="side-tracks"><!-- généré par app.js --></div>
+        <div class="side-foot">
+          <button class="side-link" type="button" data-goto="generateur-cli">
+            <span class="step-no">32</span> Outil : Générateur CLI
+          </button>
+          <button class="side-link" type="button" data-goto="quiz-final">
+            <span class="step-no">40</span> Quiz final
+          </button>
+        </div>
+      </nav>
+
+      <main id="main-content" tabindex="-1">
+        <div id="home-view"><!-- accueil générée par app.js --></div>
+        <article id="section-view" hidden aria-live="polite"></article>
+      </main>
+
+      <aside id="glossary-panel" hidden aria-label="Glossaire contextuel">
+        <h2><i class="fa-solid fa-book" aria-hidden="true"></i> Glossaire</h2>
+        <p class="gl-sub">Termes de la section courante, ou glossaire complet.</p>
+        <div class="gl-tabs" role="tablist">
+          <button class="gl-tab active" id="gl-tab-section" type="button" role="tab" aria-selected="true">Section</button>
+          <button class="gl-tab" id="gl-tab-all" type="button" role="tab" aria-selected="false">Tout (A-Z)</button>
+        </div>
+        <div id="glossary-content"></div>
+      </aside>
+    </div>
+  </div>
+
+  <div id="toast-container" aria-live="polite" aria-atomic="false"></div>
+
+  <!-- ══════════ Scripts (ordre imposé : registre → helpers → données → moteur) ══════════ -->
+  <script src="js/registry.js"></script>
+  <script src="js/diagrams.js"></script>
+  <script src="js/quiz.js"></script>
+  <script src="js/tools/cli-generator.js"></script>
+
+  <script src="data/core.js"></script>
+  <script src="data/securite-1.js"></script>
+  <script src="data/securite-2.js"></script>
+  <script src="data/services-1.js"></script>
+  <script src="data/services-2.js"></script>
+  <script src="data/interconnexion-1.js"></script>
+  <script src="data/interconnexion-2.js"></script>
+  <script src="data/exploitation-1.js"></script>
+  <script src="data/exploitation-2.js"></script>
+  <script src="data/labs.js"></script>
+
+  <script src="data/glossary-core.js"></script>
+  <script src="data/glossary-security.js"></script>
+  <script src="data/glossary-vpn.js"></script>
+  <script src="data/glossary-exploitation.js"></script>
+
+  <script src="data/diagrams-core.js"></script>
+  <script src="data/diagrams-security.js"></script>
+  <script src="data/diagrams-services.js"></script>
+  <script src="data/diagrams-vpn.js"></script>
+  <script src="data/diagrams-exploitation.js"></script>
+
+  <script src="data/quiz-core.js"></script>
+  <script src="data/quiz-security.js"></script>
+  <script src="data/quiz-vpn.js"></script>
+  <script src="data/quiz-exploitation.js"></script>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

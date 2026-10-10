@@ -1,0 +1,26 @@
+{
+  "name": "Guide Interactif FortiGate — CFP-CMD",
+  "short_name": "Guide FortiGate",
+  "description": "Guide interactif d'apprentissage de la configuration d'un pare-feu FortiGate — CFP-CMD, MASTER NMA",
+  "lang": "fr",
+  "start_url": "./index.html",
+  "scope": "./",
+  "icons": [
+    {
+      "src": "assets/web-app-manifest-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "assets/web-app-manifest-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "theme_color": "#da291c",
+  "background_color": "#0f1420",
+  "display": "standalone",
+  "orientation": "any"
+}

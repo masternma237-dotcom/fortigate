@@ -1,0 +1,55 @@
+/* ============================================================
+   data/glossary-vpn.js — Glossaire : VPN & interconnexion
+   Guide Interactif FortiGate CFP-CMD / MASTER NMA
+   ============================================================ */
+(function () {
+  "use strict";
+  FG.addGlossary({
+    "SSL-VPN": "VPN sur TLS : accès distant via portail web ou client léger, traverse les réseaux restreints, authentification forte possible.",
+    "Portail": "Page/registre SSL-VPN définissant le mode (web, tunnel), les bookmarks et le split tunneling pour un groupe d'utilisateurs.",
+    "Split tunneling": "Seuls les réseaux internes passent dans le tunnel ; le reste du trafic sort par la connexion locale du client.",
+    "Tunnel mode": "Mode SSL-VPN créant une interface virtuelle chez le client : il reçoit une adresse du pool et devient un nœud du réseau.",
+    "Pool d'adresses VPN": "Plage attribuée aux clients VPN (SSL ou IPsec) : 10.10.10.0/24 au CFP-CMD, traitée comme zone dans les politiques.",
+    "IPsec": "Suite de protocoles chiffrant les flux IP site-à-site : IKE pour la négociation, ESP pour la protection des données.",
+    "IKEv2": "Version moderne d'Internet Key Exchange : négociation robuste, moins d'échanges, plus de résilience qu'IKEv1.",
+    "Phase 1": "Négociation du canal IKE : algorithmes, authentification (PSK/certificats), DPD, groupes DH.",
+    "Phase 2": "Négociation des SA de données : sous-réseaux protégés (sélecteurs), propositions, PFS.",
+    "PSK": "Pre-Shared Key : secret partagé authentifiant la phase 1. Simple pour deux sites, à remplacer par des certificats au-delà.",
+    "PFS": "Perfect Forward Secrecy : chaque SA dérive ses clés d'un nouvel échange DH ; une clé compromise ne déchiffre pas le passé.",
+    "DPD": "Dead Peer Detection : sondes IKE détectant la panne du pair et déclenchant la renégociation automatique.",
+    "Certificat IKE": "Authentification de la phase 1 par certificats signés d'une CA : identité par site, révocation individuelle.",
+    "Peer ID": "Identité attendue du pair (CN du certificat) : FortiOS refuse les pairs non conformes.",
+    "AES-GCM": "Chiffrement authentifié (confidentialité + intégrité en un seul algorithme) : proposition moderne des tunnels.",
+    "ADVPN": "Auto Discovery VPN : tunnels directs dynamiques entre spokes d'un réseau hub & spoke, guidés par le hub.",
+    "Hub & spoke": "Topologie en étoile : un hub central (siège) relie tous les sites (spokes) ; ADVPN ajoute des raccourcis entre spokes.",
+    "Sélecteur": "Couple de sous-réseaux (src/dst) d'une phase 2 : délimite précisément les flux chiffrés.",
+    "SD-WAN": "Gestionnaire multi-WAN FortiOS : zone regroupant les liens, sondes de santé, règles de sortie applicatives.",
+    "Health check": "Sonde SD-WAN vers des cibles externes : latence, perte, gigue mesurées pour déclarer un lien utilisable.",
+    "SLA": "Service Level Agreement : seuils contractuels (latence, perte) que les sondes vérifient en continu.",
+    "Failover": "Bascule automatique vers le lien de secours dès la détection de panne : exigence de disponibilité du CDC.",
+    "WAN member": "Interface participant à la zone SD-WAN (wan1, wan2) avec sa bande passante et son coût.",
+    "Load balancing": "Répartition du trafic entre les liens disponibles selon leur capacité : rendement des deux abonnements.",
+    "Règle SD-WAN": "Décision de sortie : source/destination/application → lien et mode (manual, priority, load-balance).",
+    "Mode manual": "Affectation statique d'un trafic à un membre SD-WAN : réserve un lien (sauvegardes) ou colle une IP source.",
+    "Mode priority": "Ordre de préférence entre membres : le premier sain prend tout, les autres attendent.",
+    "Quality of experience": "Mesure utilisateur (latence, gigue, perte) par application : critère de choix des règles SD-WAN.",
+    "OSPF": "Open Shortest Path First : routage interne à état de liens, apprend la topologie et converge automatiquement.",
+    "Router ID": "Identifiant unique (format IP) d'un routeur OSPF dans le domaine.",
+    "Area": "Zone OSPF : 0.0.0.0 est le backbone ; les zones limitent la taille des bases topologiques.",
+    "LSA": "Link State Advertisement : annonce décrivant un fragment de topologie, échangée entre routeurs OSPF.",
+    "Convergence": "Temps pour recalculer les routes après un changement : le critère de qualité d'un routage dynamique.",
+    "Redistribution": "Injection de routes d'une source (statique, connecté) dans un protocole dynamique, à filtrer précisément.",
+    "BGP": "Border Gateway Protocol : routage entre systèmes autonomes, protocole des opérateurs et des interconnexions.",
+    "AS": "Autonomous System : domaine administratif de routage identifié par un ASN (public ou privé 64512-65534).",
+    "eBGP": "BGP entre deux AS différents (ex. centre ↔ FAI) : sessions explicitement autorisées et filtrées.",
+    "AS-path": "Liste des AS traversés par une annonce : attribut central des politiques (préférence, prévention de boucles).",
+    "Annonce": "Publication d'un préfixe via BGP : filtrée strictement en sortie, on n'annonce que ses propres réseaux.",
+    "Peering": "Accord d'interconnexion entre deux AS : session BGP et filtres convenus des deux côtés.",
+    "eBGP de labo": "Session eBGP simulée entre deux FortiGate avec des ASN privés : réplique pédagogique d'une interconnexion opérateur.",
+    "FortiClient": "Client Fortinet (VPN SSL, protection endpoint) : version gratuite suffisante pour le mode VPN du télétravail.",
+    "HA": "High Availability : paire de FortiGate synchronisés (active/passive ou active/active) pour la redondance matérielle.",
+    "Tunnel symétrique": "Configuration IPsec où chaque site est l'image miroir de l'autre : la condition de négociation réussie.",
+    "Coupure volontaire": "Exercice de lab consistant à couper un lien/tunnel pour mesurer la détection (DPD) et la reprise.",
+    "Bascule": "Passage automatique d'un chemin à un autre (lien WAN, tunnel, route) lors d'une panne."
+  });
+})();
